@@ -6,15 +6,14 @@ public class Employee {
     private String firstName;
     private String lastName;
 
-    public static int counter = 0;
-    private int id = 0;
+    private static int id = 0;
+    public static int counter = id +1;
 
 
 
     public Employee(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.id = ++counter;
     }
 
     public String getFirstName() {
