@@ -31,23 +31,29 @@ public class EmployeeController {
     @GetMapping("/add")
     @ExceptionHandler({EmployeeAlreadyAddedException.class, EmployeeStorageIsFullException.class})
     public Employee add(@RequestParam("firstName") String firstName,
-                        @RequestParam("lastName") String lastName) {
-        employeeService.addEmployee(firstName, lastName);
-        return employeeService.findEmployee(firstName, lastName);
+                        @RequestParam("lastName") String lastName,
+                        @RequestParam("department") int department,
+                        @RequestParam("salary") int salary) {
+        employeeService.addEmployee(firstName, lastName, department, salary);
+        return employeeService.findEmployee(firstName, lastName, department, salary);
     }
 
     @GetMapping("/remove")
     @ExceptionHandler({EmployeeNotFoundException.class})
     public String remove(@RequestParam("firstName") String firstName,
-                           @RequestParam("lastName") String lastName) {
-        employeeService.removeEmployee(firstName, lastName);
+                         @RequestParam("lastName") String lastName,
+                         @RequestParam("department") int department,
+                         @RequestParam("salary") int salary) {
+        employeeService.removeEmployee(firstName, lastName, department, salary);
         return "Сотрудник с фио " + firstName + " " + lastName;
     }
 
     @GetMapping("/find")
     @ExceptionHandler({EmployeeNotFoundException.class})
     public Employee find(@RequestParam("firstName") String firstName,
-                         @RequestParam("lastName") String lastName) {
-        return employeeService.findEmployee(firstName, lastName);
+                         @RequestParam("lastName") String lastName,
+                         @RequestParam("department") int department,
+                         @RequestParam("salary") int salary) {
+        return employeeService.findEmployee(firstName, lastName, department, salary);
     }
 }

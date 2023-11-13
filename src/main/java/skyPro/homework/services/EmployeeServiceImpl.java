@@ -8,56 +8,57 @@ import skyPro.homework.exceptions.EmployeeStorageIsFullException;
 import skyPro.homework.models.Employee;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Service
 public class EmployeeServiceImpl implements ServiceInterface{
     public static final int MAX_POSSIBLE_OF_EMPLOYEES = 5;
 
-    Map<String, Employee> employees = new HashMap<>();
+    List<Employee> employees = new ArrayList<>();
 
     @Override
     public List<Employee> returnEmployees() {
-        return new ArrayList<>(employees.values());
+        return new ArrayList<>(employees);
     }
 
     @Override
-    public void addEmployee(String firstName, String lastName) {
+    public void addEmployee(String firstName, String lastName, int department, int salary) {
+        Employee requestedEmployee = findEmployee(firstName, lastName, department, salary);
 
         if (employees.size() >= MAX_POSSIBLE_OF_EMPLOYEES) {
             throw new EmployeeStorageIsFullException();
         }
 
-        employees.put(firstName + lastName, new Employee(firstName,lastName));
+
+        if (employees.contains(requestedEmployee)){
+            throw new EmployeeAlreadyAddedException();
+        }
+
+        employees.add(new Employee(firstName,lastName, department, salary));
     }
 
     @Override
-    public void removeEmployee(String firstName, String lastName) {
+    public void removeEmployee(String firstName, String lastName, int department, int salary) {
+        Employee requestedEmployee = new Employee(firstName, lastName, department, salary);
 
-        Employee employee = employees.get(firstName + lastName);
-
-        if (employee == null) {
+        if (!employees.contains(requestedEmployee)) {
             throw new EmployeeNotFoundException();
         }
 
-        employees.remove(firstName + lastName);
+        employees.remove(requestedEmployee);
     }
 
     @Override
-    public Employee findEmployee(String firstName, String lastName) {
-        Employee requestedEmployee = new Employee(firstName, lastName);
+    public Employee findEmployee(String firstName, String lastName, int department, int salary) {
+        Employee requestedEmployee = new Employee(firstName, lastName, department, salary);
 
-        Employee employee = employees.get(firstName + lastName);
-
-        if (employee == null) {
+        if (!employees.contains(requestedEmployee)) {
             throw new EmployeeNotFoundException();
         }
-        return employee;
 
-
-
+        throw new EmployeeNotFoundException();
     }
+
+
 }
