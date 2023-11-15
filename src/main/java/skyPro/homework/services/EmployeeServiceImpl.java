@@ -7,8 +7,8 @@ import skyPro.homework.exceptions.EmployeeNotFoundException;
 import skyPro.homework.exceptions.EmployeeStorageIsFullException;
 import skyPro.homework.models.Employee;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -23,8 +23,8 @@ public class EmployeeServiceImpl implements ServiceInterface{
     }
 
     @Override
-    public void addEmployee(String firstName, String lastName, int department, int salary) {
-        Employee requestedEmployee = findEmployee(firstName, lastName, department, salary);
+    public void addEmployee(String firstName, String lastName, Integer department, int salary) {
+        Employee requestedEmployee = new Employee(firstName, lastName, department, salary);
 
         if (employees.size() >= MAX_POSSIBLE_OF_EMPLOYEES) {
             throw new EmployeeStorageIsFullException();
@@ -35,11 +35,11 @@ public class EmployeeServiceImpl implements ServiceInterface{
             throw new EmployeeAlreadyAddedException();
         }
 
-        employees.add(new Employee(firstName,lastName, department, salary));
+        employees.add(requestedEmployee);
     }
 
     @Override
-    public void removeEmployee(String firstName, String lastName, int department, int salary) {
+    public void removeEmployee(String firstName, String lastName, Integer department, int salary) {
         Employee requestedEmployee = new Employee(firstName, lastName, department, salary);
 
         if (!employees.contains(requestedEmployee)) {
@@ -50,7 +50,7 @@ public class EmployeeServiceImpl implements ServiceInterface{
     }
 
     @Override
-    public Employee findEmployee(String firstName, String lastName, int department, int salary) {
+    public Employee findEmployee(String firstName, String lastName, Integer department, int salary) {
         Employee requestedEmployee = new Employee(firstName, lastName, department, salary);
 
         if (!employees.contains(requestedEmployee)) {
@@ -59,6 +59,37 @@ public class EmployeeServiceImpl implements ServiceInterface{
 
         throw new EmployeeNotFoundException();
     }
+
+    @Override
+    public Optional<Employee> MaxSalaryInDepartment(Integer department) {
+        return employees.stream()
+                .filter(e -> e.getDepartment().equals(department))
+                .max(Comparator.comparing(Employee::getSalary));
+    }
+
+    @Override
+    public Optional<Employee> MinSalaryInDepartment(Integer department) {
+        return employees.stream()
+                .filter(e -> e.getDepartment().equals(department))
+                .min(Comparator.comparing(Employee::getSalary));
+    }
+
+    @Override
+    public List<Employee> EmployeeInDepartment(Integer department) {
+        return employees.stream()
+                .filter(e -> e.getDepartment().equals(department))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<Integer, List<Employee>> AllEmployeeByDepartment() {
+        return employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment,
+                        Collectors.mapping(e -> e,
+                        Collectors.toList())));
+    }
+
+
 
 
 }
