@@ -8,17 +8,16 @@ import skyPro.homework.exceptions.EmployeeStorageIsFullException;
 import skyPro.homework.models.Employee;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Service
-public class EmployeeServiceImpl implements ServiceInterface{
+public class EmployeeEmployeeServiceImpl implements EmployeeService {
     public static final int MAX_POSSIBLE_OF_EMPLOYEES = 5;
 
     List<Employee> employees = new ArrayList<>();
 
     @Override
-    public List<Employee> returnEmployees() {
+    public List<Employee> getEmployees() {
         return new ArrayList<>(employees);
     }
 
@@ -59,37 +58,5 @@ public class EmployeeServiceImpl implements ServiceInterface{
 
         throw new EmployeeNotFoundException();
     }
-
-    @Override
-    public Optional<Employee> MaxSalaryInDepartment(Integer department) {
-        return employees.stream()
-                .filter(e -> e.getDepartment().equals(department))
-                .max(Comparator.comparing(Employee::getSalary));
-    }
-
-    @Override
-    public Optional<Employee> MinSalaryInDepartment(Integer department) {
-        return employees.stream()
-                .filter(e -> e.getDepartment().equals(department))
-                .min(Comparator.comparing(Employee::getSalary));
-    }
-
-    @Override
-    public List<Employee> EmployeeInDepartment(Integer department) {
-        return employees.stream()
-                .filter(e -> e.getDepartment().equals(department))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Map<Integer, List<Employee>> AllEmployeeByDepartment() {
-        return employees.stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment,
-                        Collectors.mapping(e -> e,
-                        Collectors.toList())));
-    }
-
-
-
 
 }

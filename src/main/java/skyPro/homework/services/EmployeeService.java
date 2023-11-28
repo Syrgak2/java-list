@@ -3,11 +3,9 @@ package skyPro.homework.services;
 import skyPro.homework.models.Employee;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
-public interface ServiceInterface {
-    List<Employee> returnEmployees();
+public interface EmployeeService {
+    List<Employee> getEmployees();
 
     void addEmployee(String firstName, String lastName, Integer department, int salary);
 
@@ -15,12 +13,5 @@ public interface ServiceInterface {
 
     Employee findEmployee(String firstName, String lastName, Integer department, int salary);
 
-    Optional<Employee> MaxSalaryInDepartment(Integer department);
 
-    Optional<Employee> MinSalaryInDepartment(Integer department);
-
-
-    List<Employee> EmployeeInDepartment(Integer department);
-
-    Map<Integer, List<Employee>> AllEmployeeByDepartment();
 }

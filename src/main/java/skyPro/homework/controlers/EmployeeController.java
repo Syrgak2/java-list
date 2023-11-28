@@ -1,33 +1,30 @@
 package skyPro.homework.controlers;
 
 
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import skyPro.homework.exceptions.EmployeeAlreadyAddedException;
 import skyPro.homework.exceptions.EmployeeNotFoundException;
 import skyPro.homework.exceptions.EmployeeStorageIsFullException;
 import skyPro.homework.models.Employee;
-import skyPro.homework.services.EmployeeServiceImpl;
-import skyPro.homework.services.ServiceInterface;
+import skyPro.homework.services.EmployeeEmployeeServiceImpl;
+import skyPro.homework.services.EmployeeService;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
-    private final ServiceInterface employeeService;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeServiceImpl employeeService) {
+    public EmployeeController(EmployeeEmployeeServiceImpl employeeService) {
         this.employeeService = employeeService;
     }
 
     @GetMapping()
     public List<Employee> printEmployees() {
-        return employeeService.returnEmployees();
+        return employeeService.getEmployees();
     }
 
     @GetMapping("/add")
@@ -58,26 +55,6 @@ public class EmployeeController {
                          @RequestParam("department") Integer department,
                          @RequestParam("salary") int salary) {
         return employeeService.findEmployee(firstName, lastName, department, salary);
-    }
-
-    @GetMapping("/departments/max-salary")
-    public Optional<Employee> findMaxSalaryInDepartment(@RequestParam("departmentId") Integer departmentId) {
-        return employeeService.MaxSalaryInDepartment(departmentId);
-    }
-
-    @GetMapping("/departments/min-salary")
-    public Optional<Employee> findMinSalaryInDepartment(@RequestParam("departmentId") Integer departmentId) {
-        return employeeService.MinSalaryInDepartment(departmentId);
-    }
-
-    @GetMapping("/departments/all")
-    public List<Employee> returnEmployeeInDepartment(@RequestParam("departmentId") Integer departmentId) {
-        return employeeService.EmployeeInDepartment(departmentId);
-    }
-
-    @GetMapping("/all")
-    public Map<Integer, List<Employee>> returnAllEmployeeByDepartment() {
-        return employeeService.AllEmployeeByDepartment();
     }
 
 
