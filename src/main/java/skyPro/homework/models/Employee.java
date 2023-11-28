@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Employee {
     private String firstName;
     private String lastName;
-    private int department;
+    private Integer department;
     private int salary;
 
     private static int counter = 0;
@@ -13,7 +13,7 @@ public class Employee {
 
 
 
-    public Employee(String firstName, String lastName, int department, int salary) {
+    public Employee(String firstName, String lastName, Integer department, int salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.department = department;
@@ -29,7 +29,7 @@ public class Employee {
         return this.lastName;
     }
 
-    public int getDepartment() {
+    public Integer getDepartment() {
         return department;
     }
 
