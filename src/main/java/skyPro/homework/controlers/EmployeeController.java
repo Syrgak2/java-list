@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import skyPro.homework.exceptions.EmployeeAlreadyAddedException;
 import skyPro.homework.exceptions.EmployeeNotFoundException;
 import skyPro.homework.exceptions.EmployeeStorageIsFullException;
+import skyPro.homework.exceptions.InvalidInputArgumentsException;
 import skyPro.homework.models.Employee;
 import skyPro.homework.services.EmployeeEmployeeServiceImpl;
 import skyPro.homework.services.EmployeeService;
@@ -28,32 +29,27 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    @ExceptionHandler({EmployeeAlreadyAddedException.class, EmployeeStorageIsFullException.class})
     public String add(@RequestParam("firstName") String firstName,
                         @RequestParam("lastName") String lastName,
                         @RequestParam("department") Integer department,
                         @RequestParam("salary") int salary) {
         employeeService.addEmployee(firstName, lastName, department, salary);
-//        return employeeService.findEmployee(firstName, lastName, department, salary);
         return "Employee added";
     }
 
     @GetMapping("/remove")
-    @ExceptionHandler({EmployeeNotFoundException.class})
     public String remove(@RequestParam("firstName") String firstName,
                          @RequestParam("lastName") String lastName,
                          @RequestParam("department") Integer department,
                          @RequestParam("salary") int salary) {
-        employeeService.removeEmployee(firstName, lastName, department, salary);
-        return "Сотрудник с фио " + firstName + " " + lastName;
+        return employeeService.removeEmployee(firstName, lastName, department, salary);
     }
 
     @GetMapping("/find")
-    @ExceptionHandler({EmployeeNotFoundException.class})
     public Employee find(@RequestParam("firstName") String firstName,
                          @RequestParam("lastName") String lastName,
                          @RequestParam("department") Integer department,
-                         @RequestParam("salary") int salary) {
+                         @RequestParam("salary") int salary){
         return employeeService.findEmployee(firstName, lastName, department, salary);
     }
 
