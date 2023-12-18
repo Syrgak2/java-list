@@ -21,21 +21,25 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
+//    возвращает максимальную зарплату по департаменту.
     @GetMapping("/max-salary")
     public Optional<Employee> findMaxSalaryInDepartment(@RequestParam("departmentId") Integer departmentId) {
         return departmentService.maxSalaryInDepartment(departmentId);
     }
 
+//    возвращает минимальную зарплату по департаменту.
     @GetMapping("/min-salary")
     public Optional<Employee> findMinSalaryInDepartment(@RequestParam("departmentId") Integer departmentId) {
         return departmentService.minSalaryInDepartment(departmentId);
     }
 
+//     возвращает список сотрудников по департаменту.
     @GetMapping(value = "/all", params = "departmentId")
     public List<Employee> returnEmployeeInDepartment(@RequestParam("departmentId") Integer departmentId) {
         return departmentService.employeeInDepartment(departmentId);
     }
 
+//    Возвращает сотрудников, сгруппированых по отделам
     @GetMapping("/all")
     public Map<Integer, List<Employee>> returnAllEmployeeByDepartment() {
         return departmentService.allEmployeeByDepartment();

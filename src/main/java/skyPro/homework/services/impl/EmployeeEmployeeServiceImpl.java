@@ -1,4 +1,4 @@
-package skyPro.homework.services;
+package skyPro.homework.services.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -8,6 +8,7 @@ import skyPro.homework.exceptions.EmployeeNotFoundException;
 import skyPro.homework.exceptions.EmployeeStorageIsFullException;
 import skyPro.homework.exceptions.InvalidInputArgumentsException;
 import skyPro.homework.models.Employee;
+import skyPro.homework.services.EmployeeService;
 
 import java.util.*;
 
@@ -64,7 +65,7 @@ public class EmployeeEmployeeServiceImpl implements EmployeeService {
 
 
 //    collects employee from input data
-//    returns an exception if the string contains invalid characters
+//    returns an exception if the arguments contains invalid characters
     private Employee collectEmployee(String firstName, String lastName, Integer department, int salary) {
         if (!StringUtils.isAlpha(firstName) && StringUtils.isAlpha(lastName)) {
             throw new InvalidInputArgumentsException();
