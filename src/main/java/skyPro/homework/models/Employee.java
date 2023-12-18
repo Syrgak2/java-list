@@ -8,9 +8,6 @@ public class Employee {
     private Integer department;
     private int salary;
 
-    private static int counter = 0;
-    private final int id;
-
 
 
     public Employee(String firstName, String lastName, Integer department, int salary) {
@@ -18,7 +15,6 @@ public class Employee {
         this.lastName = lastName;
         this.department = department;
         this.salary = salary;
-        this.id = ++counter;
     }
 
     public String getFirstName() {
@@ -37,29 +33,21 @@ public class Employee {
         return salary;
     }
 
-    public int getId() {
-        return id;
-    }
-
     @Override
     public String toString() {
         return "Employee{" +
                 "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", id=" + id +
+                ", lastName='" + lastName +
                 '}';
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Employee employee = (Employee) o;
-        return id == employee.id && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName);
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, id);
+        return Objects.hash(firstName, lastName);
     }
 }
