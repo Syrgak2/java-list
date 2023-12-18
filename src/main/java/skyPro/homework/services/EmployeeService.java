@@ -9,9 +9,9 @@ public interface EmployeeService {
 
     void addEmployee(String firstName, String lastName, Integer department, int salary);
 
-    String removeEmployee(String firstName, String lastName, Integer department, int salary);
+    Employee removeEmployee(String firstName, String lastName);
 
-    Employee findEmployee(String firstName, String lastName, Integer department, int salary);
+    Employee findEmployee(String firstName, String lastName);
 
 
 }
