@@ -39,7 +39,6 @@ public class DepartmentController {
 
 //     возвращает список сотрудников по департаменту.
     @GetMapping(value = "/{id}/employees")
-    @ResponseBody
     public List<Employee> returnEmployeeInDepartment(@PathVariable("id") Integer departmentId) {
         return departmentService.employeeInDepartment(departmentId);
     }
