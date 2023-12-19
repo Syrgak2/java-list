@@ -17,7 +17,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         this.employeeService = employeeService;
     }
 
-//  возвращает максимальную зарплату по департаменту.
+    //  возвращает максимальную зарплату по департаменту.
     @Override
     public Optional<Employee> maxSalaryInDepartment(Integer department) {
         return employeeService.getEmployees().stream()
@@ -25,7 +25,7 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .max(Comparator.comparing(Employee::getSalary));
     }
 
-//    возвращает минимальную зарплату по департаменту.
+    //    возвращает минимальную зарплату по департаменту.
     @Override
     public Optional<Employee> minSalaryInDepartment(Integer department) {
         return employeeService.getEmployees().stream()
@@ -33,15 +33,28 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .min(Comparator.comparing(Employee::getSalary));
     }
 
+    //    возвращает сумму зарплат по департаменту.
+    @Override
+    public int getSalarySumInDepartment(Integer departmentId) {
+        int sum = 0;
+        for (Employee element : employeeService.getEmployees()) {
+            if (Objects.equals(element.getDepartment(), departmentId)) {
+                sum += element.getSalary();
+            }
+        }
+
+        return sum;
+    }
+
     //    возвращает список сотрудников по департаменту
     @Override
-    public List<Employee> employeeInDepartment(Integer department) {
+    public List<Employee> employeeInDepartment(Integer departmentId) {
         return employeeService.getEmployees().stream()
-                .filter(e -> e.getDepartment().equals(department))
+                .filter(e -> e.getDepartment().equals(departmentId))
                 .collect(Collectors.toList());
     }
 
-//    возвращает сотрудников, сгруппированых по отделам
+    //    возвращает сотрудников, сгруппированых по отделам
     @Override
     public Map<Integer, List<Employee>> allEmployeeByDepartment() {
         return employeeService.getEmployees().stream()

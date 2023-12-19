@@ -12,6 +12,9 @@ public interface DepartmentService {
     Optional<Employee> minSalaryInDepartment(Integer department);
 
 
+    //    возвращает сумму зарплат по департаменту.
+    int getSalarySumInDepartment(Integer departmentId);
+
     List<Employee> employeeInDepartment(Integer department);
 
     Map<Integer, List<Employee>> allEmployeeByDepartment();
