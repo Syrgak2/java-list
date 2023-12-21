@@ -37,13 +37,19 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName +
+                ", lastName='" + lastName + '\'' +
+                ", department=" + department +
+                ", salary=" + salary +
                 '}';
     }
 
+
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return salary == employee.salary && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(department, employee.department);
     }
 
     @Override
