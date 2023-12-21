@@ -19,7 +19,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //  возвращает максимальную зарплату по департаменту.
     @Override
-    public Optional<Employee> maxSalaryInDepartment(Integer department) {
+    public Optional<Employee> getMaxSalaryInDepartment(Integer department) {
         return employeeService.getEmployees().stream()
                 .filter(e -> e.getDepartment().equals(department))
                 .max(Comparator.comparing(Employee::getSalary));
@@ -27,7 +27,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //    возвращает минимальную зарплату по департаменту.
     @Override
-    public Optional<Employee> minSalaryInDepartment(Integer department) {
+    public Optional<Employee> getmMinSalaryInDepartment(Integer department) {
         return employeeService.getEmployees().stream()
                 .filter(e -> e.getDepartment().equals(department))
                 .min(Comparator.comparing(Employee::getSalary));
@@ -48,7 +48,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //    возвращает список сотрудников по департаменту
     @Override
-    public List<Employee> employeeInDepartment(Integer departmentId) {
+    public List<Employee> getEmployeeInDepartment(Integer departmentId) {
         return employeeService.getEmployees().stream()
                 .filter(e -> e.getDepartment().equals(departmentId))
                 .collect(Collectors.toList());
@@ -56,7 +56,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //    возвращает сотрудников, сгруппированых по отделам
     @Override
-    public Map<Integer, List<Employee>> allEmployeeByDepartment() {
+    public Map<Integer, List<Employee>> getAllEmployeeByDepartment() {
         return employeeService.getEmployees().stream()
                 .collect(Collectors.groupingBy(Employee::getDepartment,
                         Collectors.mapping(e -> e,

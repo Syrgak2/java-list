@@ -21,13 +21,13 @@ public class DepartmentController {
 //    возвращает максимальную зарплату по департаменту.
     @GetMapping("/{id}/salary/max")
     public Optional<Employee> findMaxSalaryInDepartment(@PathVariable("id") Integer departmentId) {
-        return departmentService.maxSalaryInDepartment(departmentId);
+        return departmentService.getMaxSalaryInDepartment(departmentId);
     }
 
 //    возвращает минимальную зарплату по департаменту.
     @GetMapping("{id}/salary/min")
     public Optional<Employee> findMinSalaryInDepartment(@PathVariable("id") Integer departmentId) {
-        return departmentService.minSalaryInDepartment(departmentId);
+        return departmentService.getmMinSalaryInDepartment(departmentId);
     }
 
     //    возвращает сумму зарплат по департаменту.
@@ -40,12 +40,12 @@ public class DepartmentController {
 //     возвращает список сотрудников по департаменту.
     @GetMapping(value = "/{id}/employees")
     public List<Employee> returnEmployeeInDepartment(@PathVariable("id") Integer departmentId) {
-        return departmentService.employeeInDepartment(departmentId);
+        return departmentService.getEmployeeInDepartment(departmentId);
     }
 
 //    Возвращает сотрудников, сгруппированых по отделам
     @GetMapping("/employees")
     public Map<Integer, List<Employee>> returnAllEmployeeByDepartment() {
-        return departmentService.allEmployeeByDepartment();
+        return departmentService.getAllEmployeeByDepartment();
     }
 }
