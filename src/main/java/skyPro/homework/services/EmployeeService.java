@@ -3,9 +3,10 @@ package skyPro.homework.services;
 import skyPro.homework.models.Employee;
 
 import java.util.List;
+import java.util.Map;
 
 public interface EmployeeService {
-    List<Employee> getEmployees();
+    Map<String, Employee> getEmployeesMap();
 
     Employee addEmployee(String firstName, String lastName, Integer department, int salary);
 

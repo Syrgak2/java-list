@@ -7,7 +7,9 @@ import skyPro.homework.models.Employee;
 import skyPro.homework.services.impl.EmployeeServiceImpl;
 import skyPro.homework.services.EmployeeService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -20,8 +22,8 @@ public class EmployeeController {
     }
 
     @GetMapping()
-    public List<Employee> printEmployees() {
-        return employeeService.getEmployees();
+    public List< Employee> getEmployees() {
+        return new ArrayList<>(employeeService.getEmployeesMap().values());
     }
 
     @GetMapping("/add")

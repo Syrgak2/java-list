@@ -20,8 +20,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     Map<String, Employee> employees = new HashMap<>();
 
     @Override
-    public List<Employee> getEmployees() {
-        return new ArrayList<>(employees.values());
+    public Map<String, Employee> getEmployeesMap() {
+        return new HashMap<>(employees);
     }
 
     @Override
