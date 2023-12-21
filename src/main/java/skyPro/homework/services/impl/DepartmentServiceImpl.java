@@ -17,12 +17,10 @@ public class DepartmentServiceImpl implements DepartmentService {
         this.employeeService = employeeService;
     }
 
-    private List<Employee> employees = new ArrayList<>(new ArrayList<>(employeeService.getEmployeesMap().values()));
-
     //  возвращает максимальную зарплату по департаменту.
     @Override
     public Optional<Employee> maxSalaryInDepartment(Integer department) {
-        return employees.stream()
+        return employeeService.getEmployees().stream()
                 .filter(e -> e.getDepartment().equals(department))
                 .max(Comparator.comparing(Employee::getSalary));
     }
@@ -30,7 +28,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     //    возвращает минимальную зарплату по департаменту.
     @Override
     public Optional<Employee> minSalaryInDepartment(Integer department) {
-        return employees.stream()
+        return employeeService.getEmployees().stream()
                 .filter(e -> e.getDepartment().equals(department))
                 .min(Comparator.comparing(Employee::getSalary));
     }
@@ -39,7 +37,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public int getSalarySumInDepartment(Integer departmentId) {
         int sum = 0;
-        for (Employee element : employees) {
+        for (Employee element : employeeService.getEmployees()) {
             if (Objects.equals(element.getDepartment(), departmentId)) {
                 sum += element.getSalary();
             }
@@ -51,7 +49,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     //    возвращает список сотрудников по департаменту
     @Override
     public List<Employee> employeeInDepartment(Integer departmentId) {
-        return employees.stream()
+        return employeeService.getEmployees().stream()
                 .filter(e -> e.getDepartment().equals(departmentId))
                 .collect(Collectors.toList());
     }
@@ -59,7 +57,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     //    возвращает сотрудников, сгруппированых по отделам
     @Override
     public Map<Integer, List<Employee>> allEmployeeByDepartment() {
-        return employees.stream()
+        return employeeService.getEmployees().stream()
                 .collect(Collectors.groupingBy(Employee::getDepartment,
                         Collectors.mapping(e -> e,
                                 Collectors.toList())));

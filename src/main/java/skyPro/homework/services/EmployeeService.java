@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface EmployeeService {
-    Map<String, Employee> getEmployeesMap();
+    List<Employee> getEmployees();
 
     Employee addEmployee(String firstName, String lastName, Integer department, int salary);
 

@@ -23,7 +23,7 @@ public class EmployeeController {
 
     @GetMapping()
     public List< Employee> getEmployees() {
-        return new ArrayList<>(employeeService.getEmployeesMap().values());
+        return new ArrayList<>(employeeService.getEmployees());
     }
 
     @GetMapping("/add")
