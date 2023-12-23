@@ -25,8 +25,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void addEmployee(String firstName, String lastName, Integer department, int salary) {
-        if (!StringUtils.isAlpha(firstName) && StringUtils.isAlpha(lastName)) {
+    public Employee addEmployee(String firstName, String lastName, Integer department, int salary) {
+
+        if (validateInput(firstName, lastName)) {
             throw new InvalidInputArgumentsException();
         }
 
@@ -44,11 +45,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         employees.put(firstName + lastName, requestedEmployee);
+        return employees.get(firstName + lastName);
     }
 
     @Override
     public Employee removeEmployee(String firstName, String lastName) {
-        if (!StringUtils.isAlpha(firstName) && StringUtils.isAlpha(lastName)) {
+        if (validateInput(firstName, lastName)) {
             throw new InvalidInputArgumentsException();
         }
 
@@ -66,7 +68,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee findEmployee(String firstName, String lastName) {
 
-        if (!StringUtils.isAlpha(firstName) && StringUtils.isAlpha(lastName)) {
+        if (validateInput(firstName, lastName)) {
             throw new InvalidInputArgumentsException();
         }
 
@@ -75,6 +77,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         return employees.get(firstName + lastName);
+    }
+
+    private boolean validateInput(String firstName, String lastName) {
+        return !StringUtils.isAlpha(firstName) || !StringUtils.isAlpha(lastName);
     }
 
 }

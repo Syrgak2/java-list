@@ -7,12 +7,15 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface DepartmentService {
-    Optional<Employee> maxSalaryInDepartment(Integer department);
+    Optional<Employee> getMaxSalaryInDepartment(Integer department);
 
-    Optional<Employee> minSalaryInDepartment(Integer department);
+    Optional<Employee> getmMinSalaryInDepartment(Integer department);
 
 
-    List<Employee> employeeInDepartment(Integer department);
+    //    возвращает сумму зарплат по департаменту.
+    int getSalarySumInDepartment(Integer departmentId);
 
-    Map<Integer, List<Employee>> allEmployeeByDepartment();
+    List<Employee> getEmployeeInDepartment(Integer department);
+
+    Map<Integer, List<Employee>> getAllEmployeeByDepartment();
 }
